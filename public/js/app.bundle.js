@@ -63,60 +63,15 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
 "use strict";
-
-
-CreditsController.$inject = ['$http'];
-
-function CreditsController($http) {
-
-    var vm = this;
-
-    vm.creditEntries = [{
-        amount: 123,
-        note: 123,
-        createdAt: 123
-    }, {
-        amount: 456,
-        note: 456,
-        createdAt: 456
-    }];
-
-    /**
-     * 
-     *  NEED TO READ ALL OF THE CREDIT ENTRIES FROM THE DB WHEN PAGE LOADS
-     * 
-     */
-
-    vm.addCredit = function () {
-
-        // make an ajax call to save the new Credit to the database
-
-        // only push to the creditEntries array if the ajax call is successful
-
-        vm.creditEntries.push({
-            amount: vm.newCreditAmount,
-            note: vm.newCreditNote,
-            createdAt: new Date()
-        });
-
-        resetForm();
-    };
-
-    function resetForm() {
-        vm.newCreditAmount = '';
-        vm.newCreditNote = '';
-    }
-}
-
-module.exports = CreditsController;
+throw new Error("Module build failed: SyntaxError: Unexpected token (44:0)\n\n\u001b[0m \u001b[90m 42 | \u001b[39m    }\n \u001b[90m 43 | \u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 44 | \u001b[39m}\n \u001b[90m    | \u001b[39m\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 45 | \u001b[39m\n \u001b[90m 46 | \u001b[39mmodule\u001b[33m.\u001b[39mexports \u001b[33m=\u001b[39m \u001b[33mCreditsController\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n");
 
 /***/ }),
 /* 1 */
@@ -125,7 +80,7 @@ module.exports = CreditsController;
 "use strict";
 
 
-var angular = __webpack_require__(4);
+var angular = __webpack_require__(5);
 
 angular.module('BudgetApp', []);
 
@@ -136,7 +91,7 @@ angular.module('BudgetApp', []);
 "use strict";
 
 
-var creditsTemplate = __webpack_require__(5);
+var creditsTemplate = __webpack_require__(6);
 var creditsController = __webpack_require__(0);
 
 var CreditsComponent = {
@@ -148,6 +103,30 @@ angular.module('BudgetApp').component('credits', CreditsComponent);
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+angular.module('BudgetApp').service('CreditsService', CreditsService);
+
+CreditsService.$inject = ['$http'];
+
+function CreditsService($http) {
+
+    var self = this;
+
+    self.getCredits = function () {
+        return $http.get('/credits');
+    };
+};
+
+self.addCredit = function (newCredit) {
+    return $http.post('/credits', newCredit);
+};
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports) {
 
 /**
@@ -33524,26 +33503,27 @@ $provide.value("$locale", {
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(3);
+__webpack_require__(4);
 module.exports = angular;
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n\n    <h1>CREDIT PAGE</h1>\n\n    <form ng-submit=\"$ctrl.addCredit()\">\n        <div>add $<input type=\"text\" ng-model=\"$ctrl.newCreditAmount\"></div>\n        <div>NOTE: <input type=\"text\" ng-model=\"$ctrl.newCreditNote\"></div>\n        <div><input type=\"submit\" value=\"Add to Credits\"></div>\n    </form>\n\n    <h3>Total Credit</h3>\n    <h3>$515</h3>\n\n    <table>\n        <tr ng-repeat=\"creditEntry in $ctrl.creditEntries\">\n            <td>{{creditEntry.amount}}</td>\n            <td>{{creditEntry.note}}</td>\n            <td>{{creditEntry.createdAt}}</td>\n        </tr>\n    </table>\n\n</div>";
+module.exports = "<div>\n\n    <h1>CREDIT PAGE</h1>\n\n    <form ng-submit=\"$ctrl.addCredit()\">\n        <div>add $<input type=\"text\" ng-model=\"$ctrl.newCreditTotal\"></div>\n        <div>NOTE: <input type=\"text\" ng-model=\"$ctrl.newCreditNote\"></div>\n        <div><input type=\"submit\" value=\"Add to Credits\"></div>\n    </form>\n\n    <h3>Total Credit</h3>\n    <h3>$515</h3>\n\n    <table>\n        <tr ng-repeat=\"creditEntry in $ctrl.creditEntries\">\n            <td>{{creditEntry.total}}</td>\n            <td>{{creditEntry.note}}</td>\n            <td>{{creditEntry.created_at}}</td>\n        </tr>\n    </table>\n\n</div>";
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(1);
 __webpack_require__(2);
-module.exports = __webpack_require__(0);
+__webpack_require__(0);
+module.exports = __webpack_require__(3);
 
 
 /***/ })
