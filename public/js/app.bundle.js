@@ -68,10 +68,52 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-throw new Error("Module build failed: SyntaxError: Unexpected token (44:0)\n\n\u001b[0m \u001b[90m 42 | \u001b[39m    }\n \u001b[90m 43 | \u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 44 | \u001b[39m}\n \u001b[90m    | \u001b[39m\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 45 | \u001b[39m\n \u001b[90m 46 | \u001b[39mmodule\u001b[33m.\u001b[39mexports \u001b[33m=\u001b[39m \u001b[33mCreditsController\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n");
+
+
+angular.module('BudgetApp').controller('CreditsController', CreditsController);
+
+CreditsController.$inject = ['CreditsService'];
+
+function CreditsController(CreditsService) {
+
+    var vm = this;
+    vm.creditEntries = [];
+    vm.addCredit = addCredit;
+    vm.credit = {};
+
+    vm.getCredits = function () {
+        CreditsService.getCredits().then(function (response) {
+            vm.creditEntries = response.data.credits;
+        });
+    };
+    vm.getCredits();
+
+    vm.addCredit = function () {
+        // make an ajax call to save the new Credit to the database
+        // only push to the creditEntries array if the ajax call is successful
+        CreditsService.addCredit(vm.credit).then(function () {
+            vm.getCredits();
+            vm.credit = {};
+        });
+        resetForm();
+    };
+
+    // vm.creditEntries.push({
+    //     total: vm.newCreditTotal,
+    //     note: vm.newCreditNote,
+    //     created_at: new Date()
+    // })
+
+
+    function resetForm() {
+        vm.newCreditTotal = '';
+        vm.newCreditNote = '';
+    }
+}
+module.exports = CreditsController;
 
 /***/ }),
 /* 1 */
