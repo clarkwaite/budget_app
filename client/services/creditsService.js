@@ -4,14 +4,17 @@ angular.module('BudgetApp')
 CreditsService.$inject = ['$http'];
 
 function CreditsService($http) {
+    const self = this;
 
-    var self = this;
+    self.getCredits = getCredits;
+	self.addCredit = addCredit;
 
-    self.getCredits = function () {
+
+    function getCredits () {
         return $http.get('/credits');
     };
-};
 
  self.addCredit = function (newCredit) {
         return $http.post('/credits', newCredit);
+};
 };
